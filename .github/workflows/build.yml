@@ -5,11 +5,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
+          msystem: UCRT64
           update: true
-          install: mingw-w64-x86_64-gcc mingw-w64-x86_64-qt5-base mingw-w64-x86_64-qt5-tools mingw-w64-x86_64-libusb mingw-w64-x86_64-hidapi make
+          install: mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-qt5-base make
       - name: Compile
         shell: msys2 {0}
         run: |
@@ -18,7 +20,7 @@ jobs:
           mkdir -p OpenRGB_Win64
           cp release/OpenRGB.exe OpenRGB_Win64/ || cp OpenRGB.exe OpenRGB_Win64/
           windeployqt OpenRGB_Win64/OpenRGB.exe
-          cp /mingw64/bin/libusb-1.0.dll /mingw64/bin/libhidapi-0.dll /mingw64/bin/libstdc++-6.dll /mingw64/bin/libgcc_s_seh-1.dll /mingw64/bin/libwinpthread-1.dll OpenRGB_Win64/
+          cp /ucrt64/bin/libstdc++-6.dll /ucrt64/bin/libgcc_s_seh-1.dll /ucrt64/bin/libwinpthread-1.dll OpenRGB_Win64/
       - uses: actions/upload-artifact@v4
         with:
           name: OpenRGB_Win64
