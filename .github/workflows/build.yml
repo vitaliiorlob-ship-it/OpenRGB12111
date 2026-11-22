@@ -16,7 +16,7 @@ jobs:
         shell: msys2 {0}
         run: |
           /ucrt64/bin/qmake6 OpenRGB.pro
-          sed -i 's|release/precompiled_header.h.gch/c++||g; s|release/precompiled_header.h.gch/c||g' Makefile.Release
+          sed -i 's|-include release/precompiled_header.h||g; s|release/precompiled_header.h.gch/c++||g; s|release/precompiled_header.h.gch/c||g' Makefile.Release
           make -j4
           mkdir -p OpenRGB_Win64
           cp release/OpenRGB.exe OpenRGB_Win64/ || cp OpenRGB.exe OpenRGB_Win64/
