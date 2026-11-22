@@ -15,11 +15,11 @@ jobs:
       - name: Compile
         shell: msys2 {0}
         run: |
-          qmake OpenRGB.pro
+          /ucrt64/bin/qmake OpenRGB.pro
           make -j4
           mkdir -p OpenRGB_Win64
           cp release/OpenRGB.exe OpenRGB_Win64/ || cp OpenRGB.exe OpenRGB_Win64/
-          windeployqt OpenRGB_Win64/OpenRGB.exe
+          /ucrt64/bin/windeployqt OpenRGB_Win64/OpenRGB.exe
           cp /ucrt64/bin/libstdc++-6.dll /ucrt64/bin/libgcc_s_seh-1.dll /ucrt64/bin/libwinpthread-1.dll OpenRGB_Win64/
       - uses: actions/upload-artifact@v4
         with:
