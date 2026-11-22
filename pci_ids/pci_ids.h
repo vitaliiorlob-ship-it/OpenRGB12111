@@ -135,6 +135,7 @@
 #define NVIDIA_RTX5090_DEV                                      0x2B85
 #define NVIDIA_RTX5090D_DEV                                     0x2B87
 #define NVIDIA_RTX5090D_V2_DEV                                  0x2B8C
+#define GIGABYTE_RTX4060TI_AERO_OC_8G_SUB_DEV 0x40F9
 
 /*-----------------------------------------------------*\
 | Nvidia Sub-Device IDs                                 |
