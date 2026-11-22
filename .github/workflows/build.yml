@@ -15,7 +15,7 @@ jobs:
       - name: Compile
         shell: msys2 {0}
         run: |
-          /ucrt64/bin/qmake6 OpenRGB.pro
+          /ucrt64/bin/qmake6 OpenRGB.pro "CONFIG-=precompile_header"
           make -j4
           mkdir -p OpenRGB_Win64
           cp release/OpenRGB.exe OpenRGB_Win64/ || cp OpenRGB.exe OpenRGB_Win64/
