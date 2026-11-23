@@ -11,18 +11,18 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-qt6-base mingw-w64-ucrt-x86_64-qt6-tools make git
+          install: mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-qt6-base mingw-w64-ucrt-x86_64-qt6-tools mingw-w64-ucrt-x86_64-hidapi mingw-w64-ucrt-x86_64-libusb make git
       - name: Compile
         shell: msys2 {0}
         run: |
           sed -i 's/_MSC_VER/_WIN32/g' dependencies/hueplusplus-1.2.0/src/TimePattern.cpp
           /ucrt64/bin/qmake6 OpenRGB.pro
-          sed -i 's|-include release/precompiled_header.h||g; s|release/precompiled_header.h.gch/c++||g; s|release/precompiled_header.h.gch/c||g; s|/utf-8||g' Makefile.Release
+          sed -i 's|-include release/precompiled_header.h||g; s|release/precompiled_header.h.gch/c++||g; s|release/precompiled_header.h.gch/c||g; s|/utf-8||g; s|[^ ]*hidapi\.lib|-lhidapi|g' Makefile.Release
           make -j4
           mkdir -p OpenRGB_Win64
           cp release/OpenRGB.exe OpenRGB_Win64/ || cp OpenRGB.exe OpenRGB_Win64/
           /ucrt64/bin/windeployqt6 OpenRGB_Win64/OpenRGB.exe
-          cp /ucrt64/bin/libstdc++-6.dll /ucrt64/bin/libgcc_s_seh-1.dll /ucrt64/bin/libwinpthread-1.dll OpenRGB_Win64/
+          cp /ucrt64/bin/libhidapi-0.dll /ucrt64/bin/libusb-1.0.dll /ucrt64/bin/libstdc++-6.dll /ucrt64/bin/libgcc_s_seh-1.dll /ucrt64/bin/libwinpthread-1.dll OpenRGB_Win64/
       - uses: actions/upload-artifact@v4
         with:
           name: OpenRGB_Win64
