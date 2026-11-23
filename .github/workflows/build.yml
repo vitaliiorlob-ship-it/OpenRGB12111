@@ -15,7 +15,7 @@ jobs:
       - name: Compile
         shell: msys2 {0}
         run: |
-          sed -i 's/setenv("TZ", "", 1);/_putenv("TZ=");/g; s/unsetenv("TZ");/_putenv("TZ=");/g' dependencies/hueplusplus-1.2.0/src/TimePattern.cpp
+          sed -i 's/_MSC_VER/_WIN32/g' dependencies/hueplusplus-1.2.0/src/TimePattern.cpp
           /ucrt64/bin/qmake6 OpenRGB.pro
           sed -i 's|-include release/precompiled_header.h||g; s|release/precompiled_header.h.gch/c++||g; s|release/precompiled_header.h.gch/c||g; s|/utf-8||g' Makefile.Release
           make -j4
