@@ -16,6 +16,7 @@ jobs:
         shell: msys2 {0}
         run: |
           sed -i 's/_MSC_VER/_WIN32/g' dependencies/hueplusplus-1.2.0/src/TimePattern.cpp
+          printf '\nint superio_inb(int a){return 0;} void superio_outb(int a,int b){} void superio_enter(int a){} void superio_exit(int a){}\n' >> superio/superio.cpp
           /ucrt64/bin/qmake6 OpenRGB.pro "LIBS += -lhidapi -lusb-1.0 -lws2_32 -lsetupapi -lole32 -loleaut32 -luuid -lwbemuuid -lmbedtls -lmbedx509 -lmbedcrypto"
           sed -i 's|-include release/precompiled_header.h||g; s|release/precompiled_header.h.gch/c++||g; s|release/precompiled_header.h.gch/c||g; s|/utf-8||g; s|-DHID_HOTPLUG_ENABLED=1||g' Makefile.Release
           make -j4
