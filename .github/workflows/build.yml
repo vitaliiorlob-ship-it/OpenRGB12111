@@ -24,7 +24,8 @@ jobs:
           mkdir -p OpenRGB_Win64
           cp release/OpenRGB.exe OpenRGB_Win64/ || cp OpenRGB.exe OpenRGB_Win64/
           /ucrt64/bin/windeployqt6 OpenRGB_Win64/OpenRGB.exe
-          cp /ucrt64/bin/libhidapi-0.dll /ucrt64/bin/libusb-1.0.dll /ucrt64/bin/libmbedtls.dll /ucrt64/bin/libmbedx509.dll /ucrt64/bin/libmbedcrypto.dll /ucrt64/bin/libstdc++-6.dll /ucrt64/bin/libgcc_s_seh-1.dll /ucrt64/bin/libwinpthread-1.dll OpenRGB_Win64/
+          cp /ucrt64/bin/libhidapi-0.dll /ucrt64/bin/libusb-1.0.dll OpenRGB_Win64/
+          cp /ucrt64/bin/libmbed*.dll OpenRGB_Win64/ || true 
       - uses: actions/upload-artifact@v4
         with:
           name: OpenRGB_Win64
